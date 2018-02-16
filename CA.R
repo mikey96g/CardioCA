@@ -20,7 +20,7 @@ ca<-Cardiology$ca
 thal<-Cardiology$thal
 class<-Cardiology$class
 
-summary(Cardiology)
+
 #Find
 #1.The attribute type, e.g. nominal, ordinal, numeric 
 class(age)
@@ -41,12 +41,47 @@ class(class)
 
 #2.Percentage of missing values in the data
 table(is.na(Cardiology))
-(7/4613)*100
+percentageOf_missing_values<-(7/4613)*100
 #3.Max, min, mean, mode, median standard deviation
-max(age)
-max(sex)
-max()
+summary(Cardiology)
+#Function for the mode
+Mode <- function(x)
+{
+ ux<- unique(x)
+ ux[which.max(tabulate(match(x,ux)))]
+}
+Mode(age)
+Mode(sex)
+Mode(cp)
+Mode(trestbps)
+Mode(cholestral)
+Mode(bSugar)
+Mode(restecg)
+Mode(diastbpererc)
+Mode(thalach)
+Mode(exang)
+Mode(oldpeak)
+Mode(slope)
+Mode(ca)
+Mode(thal)
+Mode(class)
+
+sd(age)
+
+
+sd(trestbps)
+sd(cholestral)
+sd(bSugar)
+sd(diastbpererc)
+sd(thalach)
+sd(exang)
+sd(oldpeak)
+
+sd(ca)
+
+
 #4.The type of distribution that the numeric attributes seem to follow (e.g. normal).
+
 #5.Whether the numeric data is skewed and the type of skewness
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
