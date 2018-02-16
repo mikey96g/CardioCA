@@ -1,5 +1,5 @@
-#theUrl <- "https://github.com/mikey96g/CardioCA/blob/master/CardiologyRel.csv"
-#Cardiology <-read.table(file = theUrl,header = TRUE,sep = ",",stringsAsFactors=FALSE)
+install.packages("nortest",dependencies = TRUE)
+library(nortest)
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -67,8 +67,6 @@ Mode(thal)
 Mode(class)
 
 sd(age)
-
-
 sd(trestbps)
 sd(cholestral)
 sd(bSugar)
@@ -76,12 +74,19 @@ sd(diastbpererc)
 sd(thalach)
 sd(exang)
 sd(oldpeak)
-
 sd(ca)
 
 
 #4.The type of distribution that the numeric attributes seem to follow (e.g. normal).
+ad.test(age)
+ad.test(cholestral)
+ad.test(ca)
+ad.test(diastbpererc)
+ad.test(oldpeak)
+ad.test(thalach)
+ad.test(trestbps)
 
 #5.Whether the numeric data is skewed and the type of skewness
+
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
