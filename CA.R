@@ -1,5 +1,7 @@
 install.packages("nortest",dependencies = TRUE)
 library(nortest)
+install.packages("moments",dependencies = TRUE)
+library(moments)
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -87,6 +89,12 @@ ad.test(thalach)
 ad.test(trestbps)
 
 #5.Whether the numeric data is skewed and the type of skewness
-
+skewness(age)
+skewness(cholestral)
+skewness(ca)
+skewness(diastbpererc)
+skewness(oldpeak)
+skewness(thalach)
+skewness(trestbps)
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
