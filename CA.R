@@ -1,7 +1,10 @@
+#Michael Gallagher x00121692
 install.packages("nortest",dependencies = TRUE)
 library(nortest)
 install.packages("moments",dependencies = TRUE)
 library(moments)
+install.packages('corrplot',dependencies = TRUE)
+library(corrplot)
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -44,8 +47,10 @@ class(class)
 #2.Percentage of missing values in the data
 table(is.na(Cardiology))
 percentageOf_missing_values<-(7/4613)*100
+
 #3.Max, min, mean, mode, median standard deviation
 summary(Cardiology)
+
 #Function for the mode
 Mode <- function(x)
 {
@@ -96,5 +101,6 @@ skewness(diastbpererc)
 skewness(oldpeak)
 skewness(thalach)
 skewness(trestbps)
+
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
