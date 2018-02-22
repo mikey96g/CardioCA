@@ -5,6 +5,8 @@ install.packages("moments",dependencies = TRUE)
 library(moments)
 install.packages('corrplot',dependencies = TRUE)
 library(corrplot)
+install.packages("ggplot2")
+library(ggplot2)
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -119,6 +121,30 @@ d <- data.frame(age=rnorm(308),
                 ca=rnorm(308),
                 thal=rnorm(308),
                 class=rnorm(308))
+
 M<-cor(d)
-corrplot(M,method = 'number')
-print(class=rnorm(10))
+corrplot(M,method = 'ellipse')
+cor(d)
+
+e <- data.frame(age,
+                sex,
+                cp,
+                trestbps,
+                cholestral,
+                bSugar,
+                diastbpererc,
+                thalach,
+                exang,
+                oldpeak,
+                slope,
+                ca,
+                thal,
+                factor(class))
+class<-factor(class)
+
+ggplot(e,aes(x=age))+
+  geom_histogram(colour="black")+
+  stat_function(fun = dnorm,
+                colour="red",
+                args=list(class))
+  
