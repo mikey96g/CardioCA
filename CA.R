@@ -104,3 +104,21 @@ skewness(trestbps)
 
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
+d <- data.frame(age=rnorm(308),
+                sex=rnorm(308),
+                cp=rnorm(308),
+                trestbps=rnorm(308),
+                cholestral=rnorm(308),
+                bSugar=rnorm(308),
+                restecg=rnorm(308),
+                diastbpererc=rnorm(308),
+                thalach=rnorm(308),
+                exang=rnorm(308),
+                oldpeak=rnorm(308),
+                slope=rnorm(308),
+                ca=rnorm(308),
+                thal=rnorm(308),
+                class=rnorm(308))
+M<-cor(d)
+corrplot(M,method = 'number')
+print(class=rnorm(10))
