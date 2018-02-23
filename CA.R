@@ -126,7 +126,7 @@ M<-cor(d)
 corrplot(M,method = 'ellipse')
 cor(d)
 
-e <- data.frame(age,
+data <- data.frame(age,
                 sex,
                 cp,
                 trestbps,
@@ -142,9 +142,10 @@ e <- data.frame(age,
                 factor(class))
 class<-factor(class)
 
-ggplot(e,aes(x=age))+
-  geom_histogram(colour="black")+
-  stat_function(fun = dnorm,
-                colour="red",
-                args=list(class))
-  
+#ggplot(data,aes(x=age))+geom_histogram(binwidth = 3) +
+#  geom_density(aes(n=class, y=..density..*n,color='cut',))
+ggplot(data,aes(x=age,group=class,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 3)+theme_bw()
+
+ggplot(data,aes(x=trestbps,group=class,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 3)+theme_bw()
