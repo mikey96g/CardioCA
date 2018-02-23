@@ -1,13 +1,16 @@
 #Michael Gallagher x00121692
-install.packages("nortest",dependencies = TRUE)
+#install.packages("nortest",dependencies = TRUE)
 library(nortest)
-install.packages("moments",dependencies = TRUE)
+#install.packages("moments",dependencies = TRUE)
 library(moments)
-install.packages('corrplot',dependencies = TRUE)
+#install.packages('corrplot',dependencies = TRUE)
 library(corrplot)
-install.packages("ggplot2")
+#install.packages("ggplot2")
 library(ggplot2)
+#install.packages("matlab",dependencies = TRUE)
 #ggloop
+#install.packages('ggloop',dependencies = TRUE)
+library(ggloop)
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -206,8 +209,42 @@ boxplot(oldpeak)
 #boxplot(thal)
 #boxplot(class)
 
-plot(age,pch="21",cex = 2,main="sss")
-abline()
-#http://r-statistics.co/Outlier-Treatment-With-R.html
+OUTLIERhistogram<- function(oVal)
+  {
+  ggplot(data,aes(x=oVal
+                  ))+    
+  geom_histogram(binwidth = 3)
+}
+OUTLIERhistogram(age)
+OUTLIERhistogram(trestbps)
+OUTLIERhistogram(cholestral)
+OUTLIERhistogram(diastbpererc)
+OUTLIERhistogram(thalach)
+OUTLIERhistogram(oldpeak)
+#OUTLIERhistogram(sex)
+#OUTLIERhistogram(cp)
+#OUTLIERhistogram(bSugar)
+#OUTLIERhistogram(restecg)
+#OUTLIERhistogram(exang)
+#OUTLIERhistogram(slope)
+#OUTLIERhistogram(ca)
+#OUTLIERhistogram(thal)
+#OUTLIERhistogram(class)
+
+BarChartOutlier<- function(oVal){
+  ggplot(data,aes(x=oVal))+
+    geom_bar()
+}
 
 
+BarChartOutlier(class)
+BarChartOutlier(cp)
+BarChartOutlier(bSugar)
+BarChartOutlier(exang)
+BarChartOutlier(slope)
+BarChartOutlier(ca)
+BarChartOutlier(thal)
+BarChartOutlier(sex)
+BarChartOutlier(restecg)
+
+#5
