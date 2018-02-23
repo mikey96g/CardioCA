@@ -248,7 +248,18 @@ BarChartOutlier(sex)
 BarChartOutlier(restecg)
 
 #5
-install.packages('car', dependencies = TRUE)
-library(car)
-#scatterplot(age~wt |)
+#install.packages('car', dependencies = TRUE)
+#library(car)
+# scatter function plot for correlation
+scatterPlot<-function(v1,v2)
+  {
+ggplot(data,aes(x=v1,v2))+
+  geom_point(size=1)+
+  geom_smooth(method = "lm", se = FALSE)
+}
 
+# scatter plots numeric only
+scatterPlot(trestbps,age)
+
+#
+ 
