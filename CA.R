@@ -11,7 +11,7 @@ library(ggplot2)
 #ggloop
 #install.packages('ggloop',dependencies = TRUE)
 library(ggloop)
-Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
+Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
 head(Cardiology)
@@ -248,3 +248,7 @@ BarChartOutlier(sex)
 BarChartOutlier(restecg)
 
 #5
+install.packages('car', dependencies = TRUE)
+library(car)
+#scatterplot(age~wt |)
+
