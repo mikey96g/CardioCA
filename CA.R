@@ -205,3 +205,9 @@ boxplot(oldpeak)
 #boxplot(ca)
 #boxplot(thal)
 #boxplot(class)
+
+plot(age,pch="21",cex = 2,main="sss")
+abline()
+#http://r-statistics.co/Outlier-Treatment-With-R.html
+
+
