@@ -7,6 +7,7 @@ install.packages('corrplot',dependencies = TRUE)
 library(corrplot)
 install.packages("ggplot2")
 library(ggplot2)
+#ggloop
 Cardiology<-read.table("C:/Users/x00121692/Downloads/CardiologyRel.csv", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -26,6 +27,17 @@ slope<-Cardiology$slope
 ca<-Cardiology$ca
 thal<-Cardiology$thal
 class<-Cardiology$class
+
+#Change to factor if needed
+class<-factor(class)
+cp<-factor(cp)
+bSugar<-factor(bSugar)
+exang<-factor(exang)
+slope<-factor(slope)
+ca<-factor(ca)
+thal<-factor(tahl)
+sex<-factor(sex)
+restecg<-factor(restecg)
 
 
 #Find
@@ -139,13 +151,42 @@ data <- data.frame(age,
                 slope,
                 ca,
                 thal,
-                factor(class))
-class<-factor(class)
+                class,
+                restecg)
+
 
 #ggplot(data,aes(x=age))+geom_histogram(binwidth = 3) +
 #  geom_density(aes(n=class, y=..density..*n,color='cut',))
-ggplot(data,aes(x=age,group=class,fill=class))+
-  geom_histogram(position = "identity",alpha=0.4,binwidth = 3)+theme_bw()
 
-ggplot(data,aes(x=trestbps,group=class,fill=class))+
+#2 Histogram Overlay
+HistogramOverlay <- function(nVal){
+  ggplot(data,aes(x=nVal,fill=class))+
   geom_histogram(position = "identity",alpha=0.4,binwidth = 3)+theme_bw()
+}
+
+
+HistogramOverlay(age)
+HistogramOverlay(cholestral)
+HistogramOverlay(diastbpererc)
+HistogramOverlay(oldpeak)
+HistogramOverlay(thalach)
+HistogramOverlay(trestbps)
+
+#3 Barchart overlay
+BarChartOverlay<- function(cVal){
+ggplot(data,aes(x=cVal,fill=class))+
+  geom_bar(position = "identity",alpha=0.4)+theme_bw()
+}
+
+
+BarChartOverlay(class)
+BarChartOverlay(cp)
+BarChartOverlay(bSugar)
+BarChartOverlay(exang)
+BarChartOverlay(slope)
+BarChartOverlay(ca)
+BarChartOverlay(thal)
+BarChartOverlay(sex)
+BarChartOverlay(restecg)
+
+#4 Finding outliers
