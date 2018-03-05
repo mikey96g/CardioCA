@@ -10,7 +10,7 @@ library(ggplot2)
 #install.packages("matlab",dependencies = TRUE)
 #ggloop
 #install.packages('ggloop',dependencies = TRUE)
-library(ggloop)
+#library(ggloop)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 
@@ -258,8 +258,48 @@ ggplot(data,aes(x=v1,v2))+
   geom_smooth(method = "lm", se = FALSE)
 }
 
-# scatter plots numeric only
+# scatter plots numeric only need to finish
 scatterPlot(trestbps,age)
 
-#
- 
+#######PART 2#######  
+#install.packages("classInt",dependencies = TRUE)
+#library(classInt)
+n<-length(age)
+#Declare number of bins and bin indicator
+nbins<-4
+whichbin<-c(rep(0,n)) 
+whichbin
+#Equal Frequencey(Equal Depth)
+freq<-n/nbins
+#sort the data
+xsorted<-sort(age)
+for (i in 1:nbins)
+{
+  for(j in 1:n)
+  {
+    if((i-1)*freq<j&&j<=i*freq)
+      whichbin[j]<-i
+  }
+  
+}
+whichbin
+xsorted
+
+#equal-width-4 bins
+range.age<-max(age)-min(age)+1
+binwidth<-round(range.age/nbins)
+for(i in 1:nbins)
+{
+  for(j in 1:n)
+  {
+    if((i-1)*binwidth < age[j]&&age[j]<=(i)*binwidth)
+      whichbin[j]<-i
+    
+  }
+  
+}
+whichbin
+age
+
+#K-means clustering as a binning strategy where k=3
+kmeansclustering<- kmeans(age,centers = nbins)
