@@ -113,7 +113,7 @@ ad.test(trestbps)
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
 skewness(cholestral)
-skewness(ca)
+#skewness(ca)
 skewness(diastbpererc)
 skewness(oldpeak)
 skewness(thalach)
@@ -301,5 +301,18 @@ for(i in 1:nbins)
 whichbin
 age
 
-#K-means clustering as a binning strategy where k=3
+#K-means clustering as a binning strategy where k=4
 kmeansclustering<- kmeans(age,centers = nbins)
+which<-kmeansclustering$cluster
+whichbin
+age
+
+#7.Skewness
+#Z-score stanard
+skewness(oldpeak)
+scale(oldpeak, center = TRUE, scale = TRUE)
+skewness(oldpeak)
+
+
+
+#https://stackoverflow.com/questions/20254084/plot-normal-left-and-right-skewed-distribution-in-r
