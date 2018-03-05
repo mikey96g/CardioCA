@@ -333,5 +333,5 @@ skewness(invsqrt.oldpeak)
 install.packages("rpart",dependencies = TRUE)
 library(rpart)
  
-#grow tree
-fit rpart(Cardiology ~)
+#grow tree https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/
+#fit rpart(Cardiology ~)
