@@ -13,6 +13,8 @@ library(ggplot2)
 #library(ggloop)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
+Cardiology<-read.table()
+
 
 head(Cardiology)
 age<-Cardiology$age
@@ -112,7 +114,7 @@ ad.test(trestbps)
 
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
-skewness(cholestral)
+skewness(cholestral,na.rm = TRUE)
 #skewness(ca)
 skewness(diastbpererc)
 skewness(oldpeak)
@@ -173,7 +175,7 @@ HistogramOverlay(cholestral)
 HistogramOverlay(diastbpererc)
 HistogramOverlay(oldpeak)
 HistogramOverlay(thalach)
-HistogramOverlay(trestbps)
+  HistogramOverlay(trestbps)
 
 #3 Barchart overlay
 BarChartOverlay<- function(cVal){
@@ -309,10 +311,27 @@ age
 
 #7.Skewness
 #Z-score stanard
-skewness(oldpeak)
-scale(oldpeak, center = TRUE, scale = TRUE)
-skewness(oldpeak)
 
 
+
+#natural log
+natlog.oldpeak<-log(Cardiology$oldpeak)
+natlog.oldpeak
+skewness(natlog.oldpeak)
+
+#Square Root
+sqrt.oldpeak<-sqrt(Cardiology$oldpeak)
+skewness(sqrt.oldpeak)
+
+#Inverse
+invsqrt.oldpeak<-1/sqrt(Cardiology$oldpeak)
+invsqrt.oldpeak
+skewness(invsqrt.oldpeak)
 
 #https://stackoverflow.com/questions/20254084/plot-normal-left-and-right-skewed-distribution-in-r
+#machiene learning 
+install.packages("rpart",dependencies = TRUE)
+library(rpart)
+ 
+#grow tree
+fit rpart(Cardiology ~)
