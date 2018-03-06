@@ -11,6 +11,9 @@ library(ggplot2)
 #ggloop
 #install.packages('ggloop',dependencies = TRUE)
 #library(ggloop)
+install.packages("missForest")
+
+library(missForest)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 Cardiology<-read.table()
@@ -320,8 +323,8 @@ natlog.oldpeak
 skewness(natlog.oldpeak)
 
 #Square Root
-sqrt.oldpeak<-sqrt(Cardiology$oldpeak)
-skewness(sqrt.oldpeak)
+oldpeak<-sqrt(Cardiology$oldpeak)
+skewness(oldpeak)
 
 #Inverse
 invsqrt.oldpeak<-1/sqrt(Cardiology$oldpeak)
@@ -335,3 +338,33 @@ library(rpart)
  
 #grow tree https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/
 #fit rpart(Cardiology ~)
+summary(restecg)
+missForest(restecg)
+summary(d)
+
+cholestral[is.na(cholestral)]<-240
+summary(cholestral)
+summary(class)
+class[is.na(class)]<-"Healthy"
+summary(class)
+
+
+dataImp <- data.frame(age,
+                   sex,
+                   cp,
+                   trestbps,
+                   cholestral,
+                   bSugar,
+                   diastbpererc,
+                   thalach,
+                   exang,
+                   oldpeak,
+                   slope,
+                   ca,
+                   thal,
+                   class,
+                   restecg)
+ooga <-missForest(dataImp)
+ooga$ximp
+ooga$OOBerror
+  
