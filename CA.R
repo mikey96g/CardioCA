@@ -1,22 +1,23 @@
 #Michael Gallagher x00121692
-#install.packages("nortest",dependencies = TRUE)
+install.packages("nortest",dependencies = TRUE)
 library(nortest)
-#install.packages("moments",dependencies = TRUE)
+install.packages("moments",dependencies = TRUE)
 library(moments)
-#install.packages('corrplot',dependencies = TRUE)
+install.packages('corrplot',dependencies = TRUE)
 library(corrplot)
-#install.packages("ggplot2")
+install.packages("ggplot2")
 library(ggplot2)
-#install.packages("matlab",dependencies = TRUE)
+install.packages("matlab",dependencies = TRUE)
 #ggloop
-#install.packages('ggloop',dependencies = TRUE)
-#library(ggloop)
+install.packages('ggloop',dependencies = TRUE)
+library(ggloop)
 install.packages("missForest")
 
 library(missForest)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
-Cardiology<-read.table()
+#Cardiology<-read.table(file="H://github//CardioCA//CardiologyRel.csv",
+#stringsAsFactors=FALSE, sep =",", header=TRUE)
 
 
 head(Cardiology)
@@ -43,7 +44,7 @@ bSugar<-factor(bSugar)
 exang<-factor(exang)
 slope<-factor(slope)
 ca<-factor(ca)
-thal<-factor(tahl)
+thal<-factor(thal)
 sex<-factor(sex)
 restecg<-factor(restecg)
 
@@ -97,13 +98,11 @@ Mode(class)
 
 sd(age)
 sd(trestbps)
-sd(cholestral)
-sd(bSugar)
+sd(cholestral,na.rm = TRUE)
 sd(diastbpererc)
 sd(thalach)
-sd(exang)
 sd(oldpeak)
-sd(ca)
+
 
 
 #4.The type of distribution that the numeric attributes seem to follow (e.g. normal).
@@ -118,7 +117,6 @@ ad.test(trestbps)
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
 skewness(cholestral,na.rm = TRUE)
-#skewness(ca)
 skewness(diastbpererc)
 skewness(oldpeak)
 skewness(thalach)
@@ -126,17 +124,17 @@ skewness(trestbps)
 
 #6.The level of correlation among predictor variables. Should there be any action taken?
 #What is the correct action?
-d <- data.frame(age=rnorm(308),
+d <- data.frame(age,
                 sex=rnorm(308),
                 cp=rnorm(308),
-                trestbps=rnorm(308),
+                trestbps,
                 cholestral=rnorm(308),
                 bSugar=rnorm(308),
                 restecg=rnorm(308),
-                diastbpererc=rnorm(308),
-                thalach=rnorm(308),
+                diastbpererc,
+                thalach,
                 exang=rnorm(308),
-                oldpeak=rnorm(308),
+                oldpeak,
                 slope=rnorm(308),
                 ca=rnorm(308),
                 thal=rnorm(308),
@@ -178,7 +176,7 @@ HistogramOverlay(cholestral)
 HistogramOverlay(diastbpererc)
 HistogramOverlay(oldpeak)
 HistogramOverlay(thalach)
-  HistogramOverlay(trestbps)
+HistogramOverlay(trestbps)
 
 #3 Barchart overlay
 BarChartOverlay<- function(cVal){
