@@ -1,17 +1,17 @@
 #Michael Gallagher x00121692
-install.packages("nortest",dependencies = TRUE)
+#install.packages("nortest",dependencies = TRUE)
 library(nortest)
-install.packages("moments",dependencies = TRUE)
+#install.packages("moments",dependencies = TRUE)
 library(moments)
-install.packages('corrplot',dependencies = TRUE)
+#install.packages('corrplot',dependencies = TRUE)
 library(corrplot)
-install.packages("ggplot2")
+#install.packages("ggplot2")
 library(ggplot2)
-install.packages("matlab",dependencies = TRUE)
-#ggloop
-install.packages('ggloop',dependencies = TRUE)
+#install.packages("matlab",dependencies = TRUE)
+
+#install.packages('ggloop',dependencies = TRUE)
 library(ggloop)
-install.packages("missForest")
+#install.packages("missForest")
 
 library(missForest)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
@@ -21,6 +21,7 @@ Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euM
 
 
 head(Cardiology)
+
 age<-Cardiology$age
 sex<-Cardiology$sex
 cp<-Cardiology$cp
@@ -37,7 +38,6 @@ ca<-Cardiology$ca
 thal<-Cardiology$thal
 class<-Cardiology$class
 
-#Change to factor if needed
 class<-factor(class)
 cp<-factor(cp)
 bSugar<-factor(bSugar)
@@ -47,6 +47,30 @@ ca<-factor(ca)
 thal<-factor(thal)
 sex<-factor(sex)
 restecg<-factor(restecg)
+
+table(sex)
+sex[sex == "f"]<-"Female"
+sex[sex == "m"]<-"Male"
+cp[cp == " Asymptomatic"] <- "Asymptomatic"
+table(Heart$sex)
+table(Heart$cp)
+
+Heart<-data.frame(age,
+                  sex,
+                  cp,
+                  trestbps,
+                  cholestral,
+                  bSugar,
+                  diastbpererc,
+                  thalach,
+                  exang,
+                  oldpeak,
+                  slope,
+                  ca,
+                  thal,
+                  class,
+                  restecg)
+
 
 
 #Find
@@ -112,7 +136,7 @@ ad.test(ca)
 ad.test(diastbpererc)
 ad.test(oldpeak)
 ad.test(thalach)
-ad.test(trestbps)
+a<-options(ad.test(trestbps))
 
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
