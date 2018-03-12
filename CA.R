@@ -1,26 +1,44 @@
 #Michael Gallagher x00121692
-install.packages("nortest",dependencies = TRUE)
-library(nortest)
-install.packages("moments",dependencies = TRUE)
-library(moments)
-install.packages('corrplot',dependencies = TRUE)
-library(corrplot)
-install.packages("ggplot2")
-library(ggplot2)
-install.packages("matlab",dependencies = TRUE)
-#ggloop
-install.packages('ggloop',dependencies = TRUE)
-library(ggloop)
+#install.packages("nortest",dependencies = TRUE)
+#install.packages("moments",dependencies = TRUE)
+#install.packages('corrplot',dependencies = TRUE)
+#install.packages("ggplot2")
+#install.packages("matlab",dependencies = TRUE)
 install.packages("missForest")
 
+library(nortest)
+library(moments)
+library(corrplot)
+library(ggplot2)
 library(missForest)
 Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 #Cardiology<-read.table(file="H://github//CardioCA//CardiologyRel.csv",
 #stringsAsFactors=FALSE, sep =",", header=TRUE)
 
+#Cardiology<-read.table(file="C://Users//X00121692//Desktop//Github//CardioCA//CardiologyRel.csv",
+#                       stringsAsFactors=FALSE, sep =",", header=TRUE)
 
+#Checking Data
+summary(Cardiology)
 head(Cardiology)
+table(Cardiology$age)
+table(Cardiology$sex)
+table(Cardiology$cp)
+table(Cardiology$trestbps)
+table(Cardiology$cholesterol)
+table(Cardiology$Fasting.blood.sugar...120)
+table(Cardiology$restecg)
+table(Cardiology$diastbpexerc)
+table(Cardiology$thalach)
+table(Cardiology$exang)
+table(Cardiology$oldpeak)
+table(Cardiology$slope)
+table(Cardiology$ca)
+table(Cardiology$thal)
+table(Cardiology$class)
+
+#Moving values to vectors
 age<-Cardiology$age
 sex<-Cardiology$sex
 cp<-Cardiology$cp
@@ -47,6 +65,30 @@ ca<-factor(ca)
 thal<-factor(thal)
 sex<-factor(sex)
 restecg<-factor(restecg)
+
+table(sex)
+sex[sex == "f"]<-"Female"
+sex[sex == "m"]<-"Male"
+cp[cp == " Asymptomatic"] <- "Asymptomatic"
+table(Heart$sex)
+table(Heart$cp)
+
+Heart<-data.frame(age,
+                  sex,
+                  cp,
+                  trestbps,
+                  cholestral,
+                  bSugar,
+                  diastbpererc,
+                  thalach,
+                  exang,
+                  oldpeak,
+                  slope,
+                  ca,
+                  thal,
+                  class,
+                  restecg)
+
 
 
 #Find
