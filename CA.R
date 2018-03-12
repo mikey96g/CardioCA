@@ -1,10 +1,10 @@
 #Michael Gallagher x00121692
+
 #install.packages("nortest",dependencies = TRUE)
 #install.packages("moments",dependencies = TRUE)
 #install.packages('corrplot',dependencies = TRUE)
 #install.packages("ggplot2")
-#install.packages("matlab",dependencies = TRUE)
-install.packages("missForest")
+#install.packages("missForest")
 
 library(nortest)
 library(moments)
@@ -138,23 +138,64 @@ Mode(ca)
 Mode(thal)
 Mode(class)
 
+#Stanard Deviation
 sd(age)
 sd(trestbps)
 sd(cholestral,na.rm = TRUE)
 sd(diastbpererc)
 sd(thalach)
 sd(oldpeak)
-
-
+#Remove Scientific Notation.
+options(scipen=999)
 
 #4.The type of distribution that the numeric attributes seem to follow (e.g. normal).
 ad.test(age)
 ad.test(cholestral)
-ad.test(ca)
 ad.test(diastbpererc)
 ad.test(oldpeak)
 ad.test(thalach)
 ad.test(trestbps)
+
+shapiro.test(age)
+shapiro.test(cholestral)
+shapiro.test(diastbpererc)
+shapiro.test(oldpeak)
+shapiro.test(thalach)
+shapiro.test(trestbps)
+
+
+#plotting for normaility
+#normal - maybe
+qqnorm(age)
+qqline(age,col = "red")
+hist(age)
+
+#normal
+qqnorm(cholestral)
+qqline(cholestral,col = "red")
+hist(cholestral)
+
+#not-normal
+qqnorm(diastbpererc)
+qqline(diastbpererc,col = "red")
+hist(diastbpererc)
+
+#not-normal
+qqnorm(oldpeak)
+qqline(oldpeak,col = "red")
+hist(oldpeak)
+
+#not-normal- maybe 
+qqnorm(thalach)
+qqline(thalach,col = "red")
+hist(thalach)
+
+#not-normal
+qqnorm(trestbps)
+qqline(trestbps,col = "red")
+hist(trestbps)
+
+
 
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
@@ -164,27 +205,27 @@ skewness(oldpeak)
 skewness(thalach)
 skewness(trestbps)
 
-#6.The level of correlation among predictor variables. Should there be any action taken?
-#What is the correct action?
-d <- data.frame(age,
-                sex=rnorm(308),
-                cp=rnorm(308),
-                trestbps,
-                cholestral=rnorm(308),
-                bSugar=rnorm(308),
-                restecg=rnorm(308),
-                diastbpererc,
-                thalach,
-                exang=rnorm(308),
-                oldpeak,
-                slope=rnorm(308),
-                ca=rnorm(308),
-                thal=rnorm(308),
-                class=rnorm(308))
+#6.Correlation
+#new dataframe giving interger values to categorical variables to calculate correlation
+HeartCorr<-data.frame(age,
+                  as.integer(sex),
+                  as.integer(cp),
+                  trestbps,
+                  #cholestral,
+                  as.integer(bSugar),
+                  diastbpererc,
+                  thalach,
+                  as.integer(exang),
+                  oldpeak,
+                  as.integer(slope),
+                  as.integer(ca),
+                  as.integer(thal)
+                  #as.integer(restecg)
+                  )
 
-M<-cor(d)
-corrplot(M,method = 'ellipse')
-cor(d)
+M<-cor(HeartCorr)
+corrplot(M,type = "upper",method = 'number')
+M
 
 data <- data.frame(age,
                 sex,
@@ -202,9 +243,6 @@ data <- data.frame(age,
                 class,
                 restecg)
 
-
-#ggplot(data,aes(x=age))+geom_histogram(binwidth = 3) +
-#  geom_density(aes(n=class, y=..density..*n,color='cut',))
 
 #2 Histogram Overlay
 HistogramOverlay <- function(nVal){
