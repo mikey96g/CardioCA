@@ -227,36 +227,22 @@ M<-cor(HeartCorr)
 corrplot(M,type = "upper",method = 'number')
 M
 
-data <- data.frame(age,
-                sex,
-                cp,
-                trestbps,
-                cholestral,
-                bSugar,
-                diastbpererc,
-                thalach,
-                exang,
-                oldpeak,
-                slope,
-                ca,
-                thal,
-                class,
-                restecg)
+
 
 
 #2 Histogram Overlay
-HistogramOverlay <- function(nVal){
-  ggplot(data,aes(x=nVal,fill=class))+
-  geom_histogram(position = "identity",alpha=0.4,binwidth = 3)+theme_bw()
+HistogramOverlay <- function(nVal,label){
+  ggplot(Heart,aes(x=nVal,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 4)+theme_bw()+ xlab(label)
 }
 
 
-HistogramOverlay(age)
-HistogramOverlay(cholestral)
-HistogramOverlay(diastbpererc)
-HistogramOverlay(oldpeak)
-HistogramOverlay(thalach)
-HistogramOverlay(trestbps)
+HistogramOverlay(age,"Age")
+HistogramOverlay(cholestral,"cholestral")
+HistogramOverlay(diastbpererc,"Diastolic blood pressure during excercise")
+HistogramOverlay(oldpeak,"oldpeak")
+HistogramOverlay(thalach,"Max Heart Rate")
+HistogramOverlay(trestbps,"Resting blood pressure")
 
 #3 Barchart overlay
 BarChartOverlay<- function(cVal){
