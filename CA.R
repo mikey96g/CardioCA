@@ -233,33 +233,34 @@ M
 #2 Histogram Overlay
 HistogramOverlay <- function(nVal,label){
   ggplot(Heart,aes(x=nVal,fill=class))+
-  geom_histogram(position = "identity",alpha=0.4,binwidth = 4)+theme_bw()+ xlab(label)
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 8)+theme_bw()+ xlab(label)
 }
-
+#separate call on cholestral and thalach to fix binwidth
+ggplot(Heart,aes(x=cholestral,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 40)+theme_bw()+ xlab("cholestral")
+ggplot(Heart,aes(x=thalach,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 40)+theme_bw()+ xlab("Max Heart Rate")
 
 HistogramOverlay(age,"Age")
-HistogramOverlay(cholestral,"cholestral")
 HistogramOverlay(diastbpererc,"Diastolic blood pressure during excercise")
 HistogramOverlay(oldpeak,"oldpeak")
-HistogramOverlay(thalach,"Max Heart Rate")
 HistogramOverlay(trestbps,"Resting blood pressure")
 
 #3 Barchart overlay
-BarChartOverlay<- function(cVal){
-ggplot(data,aes(x=cVal,fill=class))+
-  geom_bar(position = "identity",alpha=0.4)+theme_bw()
+BarChartOverlay<- function(cVal,label){
+ggplot(Heart,aes(x=cVal,fill=class))+
+  geom_bar(position = "identity",alpha=0.4)+theme_bw()+ xlab(label)
 }
 
 
-BarChartOverlay(class)
-BarChartOverlay(cp)
-BarChartOverlay(bSugar)
-BarChartOverlay(exang)
-BarChartOverlay(slope)
-BarChartOverlay(ca)
-BarChartOverlay(thal)
-BarChartOverlay(sex)
-BarChartOverlay(restecg)
+BarChartOverlay(cp,"Chest pain type")
+BarChartOverlay(bSugar,"Fasting Blood Sugar")
+BarChartOverlay(exang,"Exercise induced angina")
+BarChartOverlay(slope,"The slope of the peak exercise")
+BarChartOverlay(ca,"Number of major vessels")
+BarChartOverlay(thal,"thal")
+BarChartOverlay(sex,"Gender")
+BarChartOverlay(restecg,"Resting electrocardiographic results")
 
 #4 Finding outliers
 boxplot(age)
