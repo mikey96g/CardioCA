@@ -26,10 +26,10 @@ table(Cardiology$age)
 table(Cardiology$sex)
 table(Cardiology$cp)
 table(Cardiology$trestbps)
-table(Cardiology$cholesterol)
+table(Cardiology$cholestral)
 table(Cardiology$Fasting.blood.sugar...120)
 table(Cardiology$restecg)
-table(Cardiology$diastbpexerc)
+table(Cardiology$diastbpererc)
 table(Cardiology$thalach)
 table(Cardiology$exang)
 table(Cardiology$oldpeak)
@@ -43,10 +43,10 @@ age<-Cardiology$age
 sex<-Cardiology$sex
 cp<-Cardiology$cp
 trestbps<-Cardiology$trestbps
-cholestral<-Cardiology$cholesterol
+cholestral<-Cardiology$cholestral
 bSugar<-Cardiology$Fasting.blood.sugar...120
 restecg<-Cardiology$restecg
-diastbpererc<-Cardiology$diastbpexerc
+diastbpererc<-Cardiology$diastbpererc
 thalach<-Cardiology$thalach
 exang<-Cardiology$exang
 oldpeak<-Cardiology$oldpeak
@@ -263,49 +263,18 @@ BarChartOverlay(sex,"Gender")
 BarChartOverlay(restecg,"Resting electrocardiographic results")
 
 #4 Finding outliers
-boxplot(age)
-boxplot(trestbps)
-boxplot(cholestral)
-boxplot(diastbpererc)
-boxplot(thalach)
-boxplot(oldpeak)
-#boxplot(sex)
-#boxplot(cp)
-#boxplot(bSugar)
-#boxplot(restecg)
-#boxplot(exang)
-#boxplot(slope)
-#boxplot(ca)
-#boxplot(thal)
-#boxplot(class)
+boxplot(age,main="age")
+boxplot(trestbps,main="trestbps")
+boxplot(cholestral,main="cholestral")
+boxplot(diastbpererc,main="diastbpererc")
+boxplot(thalach,main="thalach")
+boxplot(oldpeak,main="oldpeak")
 
-OUTLIERhistogram<- function(oVal)
-  {
-  ggplot(data,aes(x=oVal
-                  ))+    
-  geom_histogram(binwidth = 3)
-}
-OUTLIERhistogram(age)
-OUTLIERhistogram(trestbps)
-OUTLIERhistogram(cholestral)
-OUTLIERhistogram(diastbpererc)
-OUTLIERhistogram(thalach)
-OUTLIERhistogram(oldpeak)
-#OUTLIERhistogram(sex)
-#OUTLIERhistogram(cp)
-#OUTLIERhistogram(bSugar)
-#OUTLIERhistogram(restecg)
-#OUTLIERhistogram(exang)
-#OUTLIERhistogram(slope)
-#OUTLIERhistogram(ca)
-#OUTLIERhistogram(thal)
-#OUTLIERhistogram(class)
 
 BarChartOutlier<- function(oVal){
-  ggplot(data,aes(x=oVal))+
+  ggplot(Heart,aes(x=oVal))+
     geom_bar()
 }
-
 
 BarChartOutlier(class)
 BarChartOutlier(cp)
@@ -316,20 +285,52 @@ BarChartOutlier(ca)
 BarChartOutlier(thal)
 BarChartOutlier(sex)
 BarChartOutlier(restecg)
+#Z-score test
+trestbps_sd <- sd(trestbps)
+trestbps_mean<-mean(trestbps)
+z<-(192-trestbps_mean)/trestbps_sd
+z
+
+#IQR Test
+quantile(trestbps)
+IQR(trestbps)
+140+(1.5*20)
+
+
 
 #5
-#install.packages('car', dependencies = TRUE)
-#library(car)
 # scatter function plot for correlation
-scatterPlot<-function(v1,v2)
+scatterPlot<-function(v1,v2,xVal,yVal)
   {
-ggplot(data,aes(x=v1,v2))+
-  geom_point(size=1)+
+ggplot(Heart,aes(x=v1,v2))+
+  geom_point(size=1)+ xlab(xVal) + ylab(yVal)+
   geom_smooth(method = "lm", se = FALSE)
+  
 }
 
 # scatter plots numeric only need to finish
-scatterPlot(trestbps,age)
+scatterPlot(trestbps,age,"Resting Blood Pressure","age")
+scatterPlot(trestbps,cholestral,"Resting Blood Pressure","cholestral")
+scatterPlot(trestbps,diastbpererc,"Resting Blood Pressure","diastbpererc")
+scatterPlot(trestbps,thalach,"Resting Blood Pressure","thalach")
+scatterPlot(trestbps,oldpeak,"Resting Blood Pressure","oldpeak")
+scatterPlot(age,cholestral,"age","cholestral")
+scatterPlot(age,diastbpererc,"age","diastbpererc")
+scatterPlot(age,thalach,"age","thalach")
+scatterPlot(age,oldpeak,"age","oldpeak")
+scatterPlot(cholestral,diastbpererc,"cholestral","diastbpererc")
+scatterPlot(cholestral,thalach,"cholestral","thalach")
+scatterPlot(cholestral,oldpeak,"cholestral","oldpeak")
+scatterPlot(oldpeak,diastbpererc,"oldpeak","diastbpererc")
+scatterPlot(oldpeak,thalach,"oldpeak","thalach")
+scatterPlot(thalach,diastbpererc,"thalach","diastbpererc")
+
+#verify correlation
+cor(trestbps,diastbpererc,method = c("pearson"));
+cor(trestbps,diastbpererc,method = c("kendall"));
+cor(trestbps,diastbpererc,method = c("spearman"));
+
+
 
 #######PART 2#######  
 #install.packages("classInt",dependencies = TRUE)
@@ -374,13 +375,14 @@ age
 #K-means clustering as a binning strategy where k=4
 kmeansclustering<- kmeans(age,centers = nbins)
 which<-kmeansclustering$cluster
-whichbin
+which
 age
 
 #7.Skewness
 #Z-score stanard
-
-
+skewness(oldpeak)
+z.oldpeak<- scale(oldpeak, center = TRUE, scale = TRUE)
+skewness(z.oldpeak)
 
 #natural log
 natlog.oldpeak<-log(Cardiology$oldpeak)
@@ -388,8 +390,8 @@ natlog.oldpeak
 skewness(natlog.oldpeak)
 
 #Square Root
-oldpeak<-sqrt(Cardiology$oldpeak)
-skewness(oldpeak)
+sq.oldpeak<-sqrt(Cardiology$oldpeak)
+skewness(sq.oldpeak)
 
 #Inverse
 invsqrt.oldpeak<-1/sqrt(Cardiology$oldpeak)
