@@ -26,10 +26,10 @@ table(Cardiology$age)
 table(Cardiology$sex)
 table(Cardiology$cp)
 table(Cardiology$trestbps)
-table(Cardiology$cholestral)
+table(Cardiology$cholesterol)
 table(Cardiology$Fasting.blood.sugar...120)
 table(Cardiology$restecg)
-table(Cardiology$diastbpererc)
+table(Cardiology$diastbpexerc)
 table(Cardiology$thalach)
 table(Cardiology$exang)
 table(Cardiology$oldpeak)
@@ -43,10 +43,10 @@ age<-Cardiology$age
 sex<-Cardiology$sex
 cp<-Cardiology$cp
 trestbps<-Cardiology$trestbps
-cholestral<-Cardiology$cholestral
+cholesterol<-Cardiology$cholesterol
 bSugar<-Cardiology$Fasting.blood.sugar...120
 restecg<-Cardiology$restecg
-diastbpererc<-Cardiology$diastbpererc
+diastbpexerc<-Cardiology$diastbpexerc
 thalach<-Cardiology$thalach
 exang<-Cardiology$exang
 oldpeak<-Cardiology$oldpeak
@@ -70,16 +70,16 @@ table(sex)
 sex[sex == "f"]<-"Female"
 sex[sex == "m"]<-"Male"
 cp[cp == " Asymptomatic"] <- "Asymptomatic"
-table(Heart$sex)
-table(Heart$cp)
+table(sex)
+table(cp)
 
 Heart<-data.frame(age,
                   sex,
                   cp,
                   trestbps,
-                  cholestral,
+                  cholesterol,
                   bSugar,
-                  diastbpererc,
+                  diastbpexerc,
                   thalach,
                   exang,
                   oldpeak,
@@ -97,10 +97,10 @@ class(age)
 class(sex)
 class(cp)
 class(trestbps)
-class(cholestral)
+class(cholesterol)
 class(bSugar)
 class(restecg)
-class(diastbpererc)
+class(diastbpexerc)
 class(thalach)
 class(exang)
 class(oldpeak)
@@ -126,10 +126,10 @@ Mode(age)
 Mode(sex)
 Mode(cp)
 Mode(trestbps)
-Mode(cholestral)
+Mode(cholesterol)
 Mode(bSugar)
 Mode(restecg)
-Mode(diastbpererc)
+Mode(diastbpexerc)
 Mode(thalach)
 Mode(exang)
 Mode(oldpeak)
@@ -141,8 +141,8 @@ Mode(class)
 #Stanard Deviation
 sd(age)
 sd(trestbps)
-sd(cholestral,na.rm = TRUE)
-sd(diastbpererc)
+sd(cholesterol,na.rm = TRUE)
+sd(diastbpexerc)
 sd(thalach)
 sd(oldpeak)
 #Remove Scientific Notation.
@@ -150,15 +150,15 @@ options(scipen=999)
 
 #4.The type of distribution that the numeric attributes seem to follow (e.g. normal).
 ad.test(age)
-ad.test(cholestral)
-ad.test(diastbpererc)
+ad.test(cholesterol)
+ad.test(diastbpexerc)
 ad.test(oldpeak)
 ad.test(thalach)
 ad.test(trestbps)
 
 shapiro.test(age)
-shapiro.test(cholestral)
-shapiro.test(diastbpererc)
+shapiro.test(cholesterol)
+shapiro.test(diastbpexerc)
 shapiro.test(oldpeak)
 shapiro.test(thalach)
 shapiro.test(trestbps)
@@ -171,14 +171,14 @@ qqline(age,col = "red")
 hist(age)
 
 #normal
-qqnorm(cholestral)
-qqline(cholestral,col = "red")
-hist(cholestral)
+qqnorm(cholesterol)
+qqline(cholesterol,col = "red")
+hist(cholesterol)
 
 #not-normal
-qqnorm(diastbpererc)
-qqline(diastbpererc,col = "red")
-hist(diastbpererc)
+qqnorm(diastbpexerc)
+qqline(diastbpexerc,col = "red")
+hist(diastbpexerc)
 
 #not-normal
 qqnorm(oldpeak)
@@ -199,8 +199,8 @@ hist(trestbps)
 
 #5.Whether the numeric data is skewed and the type of skewness
 skewness(age)
-skewness(cholestral,na.rm = TRUE)
-skewness(diastbpererc)
+skewness(cholesterol,na.rm = TRUE)
+skewness(diastbpexerc)
 skewness(oldpeak)
 skewness(thalach)
 skewness(trestbps)
@@ -211,9 +211,9 @@ HeartCorr<-data.frame(age,
                   as.integer(sex),
                   as.integer(cp),
                   trestbps,
-                  #cholestral,
+                  #cholesterol,
                   as.integer(bSugar),
-                  diastbpererc,
+                  diastbpexerc,
                   thalach,
                   as.integer(exang),
                   oldpeak,
@@ -235,14 +235,14 @@ HistogramOverlay <- function(nVal,label){
   ggplot(Heart,aes(x=nVal,fill=class))+
   geom_histogram(position = "identity",alpha=0.4,binwidth = 8)+theme_bw()+ xlab(label)
 }
-#separate call on cholestral and thalach to fix binwidth
-ggplot(Heart,aes(x=cholestral,fill=class))+
-  geom_histogram(position = "identity",alpha=0.4,binwidth = 40)+theme_bw()+ xlab("cholestral")
+#separate call on cholesterol and thalach to fix binwidth
+ggplot(Heart,aes(x=cholesterol,fill=class))+
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 40)+theme_bw()+ xlab("cholesterol")
 ggplot(Heart,aes(x=thalach,fill=class))+
   geom_histogram(position = "identity",alpha=0.4,binwidth = 40)+theme_bw()+ xlab("Max Heart Rate")
 
 HistogramOverlay(age,"Age")
-HistogramOverlay(diastbpererc,"Diastolic blood pressure during excercise")
+HistogramOverlay(diastbpexerc,"Diastolic blood pressure during excercise")
 HistogramOverlay(oldpeak,"oldpeak")
 HistogramOverlay(trestbps,"Resting blood pressure")
 
@@ -265,8 +265,8 @@ BarChartOverlay(restecg,"Resting electrocardiographic results")
 #4 Finding outliers
 boxplot(age,main="age")
 boxplot(trestbps,main="trestbps")
-boxplot(cholestral,main="cholestral")
-boxplot(diastbpererc,main="diastbpererc")
+boxplot(cholesterol,main="cholesterol")
+boxplot(diastbpexerc,main="diastbpexerc")
 boxplot(thalach,main="thalach")
 boxplot(oldpeak,main="oldpeak")
 
@@ -310,25 +310,25 @@ ggplot(Heart,aes(x=v1,v2))+
 
 # scatter plots numeric only need to finish
 scatterPlot(trestbps,age,"Resting Blood Pressure","age")
-scatterPlot(trestbps,cholestral,"Resting Blood Pressure","cholestral")
-scatterPlot(trestbps,diastbpererc,"Resting Blood Pressure","diastbpererc")
+scatterPlot(trestbps,cholesterol,"Resting Blood Pressure","cholesterol")
+scatterPlot(trestbps,diastbpexerc,"Resting Blood Pressure","diastbpexerc")
 scatterPlot(trestbps,thalach,"Resting Blood Pressure","thalach")
 scatterPlot(trestbps,oldpeak,"Resting Blood Pressure","oldpeak")
-scatterPlot(age,cholestral,"age","cholestral")
-scatterPlot(age,diastbpererc,"age","diastbpererc")
+scatterPlot(age,cholesterol,"age","cholesterol")
+scatterPlot(age,diastbpexerc,"age","diastbpexerc")
 scatterPlot(age,thalach,"age","thalach")
 scatterPlot(age,oldpeak,"age","oldpeak")
-scatterPlot(cholestral,diastbpererc,"cholestral","diastbpererc")
-scatterPlot(cholestral,thalach,"cholestral","thalach")
-scatterPlot(cholestral,oldpeak,"cholestral","oldpeak")
-scatterPlot(oldpeak,diastbpererc,"oldpeak","diastbpererc")
+scatterPlot(cholesterol,diastbpexerc,"cholesterol","diastbpexerc")
+scatterPlot(cholesterol,thalach,"cholesterol","thalach")
+scatterPlot(cholesterol,oldpeak,"cholesterol","oldpeak")
+scatterPlot(oldpeak,diastbpexerc,"oldpeak","diastbpexerc")
 scatterPlot(oldpeak,thalach,"oldpeak","thalach")
-scatterPlot(thalach,diastbpererc,"thalach","diastbpererc")
+scatterPlot(thalach,diastbpexerc,"thalach","diastbpexerc")
 
 #verify correlation
-cor(trestbps,diastbpererc,method = c("pearson"));
-cor(trestbps,diastbpererc,method = c("kendall"));
-cor(trestbps,diastbpererc,method = c("spearman"));
+cor(trestbps,diastbpexerc,method = c("pearson"));
+cor(trestbps,diastbpexerc,method = c("kendall"));
+cor(trestbps,diastbpexerc,method = c("spearman"));
 
 
 
@@ -374,8 +374,8 @@ age
 
 #K-means clustering as a binning strategy where k=4
 kmeansclustering<- kmeans(age,centers = nbins)
-which<-kmeansclustering$cluster
-which
+k.age<-kmeansclustering$cluster
+k.age
 age
 
 #7.Skewness
@@ -403,35 +403,38 @@ skewness(invsqrt.oldpeak)
 install.packages("rpart",dependencies = TRUE)
 library(rpart)
  
-#grow tree https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/
-#fit rpart(Cardiology ~)
 summary(restecg)
-missForest(restecg)
-summary(d)
 
-cholestral[is.na(cholestral)]<-240
-summary(cholestral)
+
+cholesterol[is.na(cholesterol)]<-240
+summary(cholesterol)
 summary(class)
 class[is.na(class)]<-"Healthy"
 summary(class)
+new.restecg <-restecg
+restecg
 
-
-dataImp <- data.frame(age,
+dataImp <- data.frame(k.age,
                    sex,
                    cp,
                    trestbps,
-                   cholestral,
+                   cholesterol,
                    bSugar,
-                   diastbpererc,
+                   diastbpexerc,
                    thalach,
                    exang,
-                   oldpeak,
+                   sq.oldpeak,
                    slope,
                    ca,
                    thal,
                    class,
-                   restecg)
-ooga <-missForest(dataImp)
-ooga$ximp
-ooga$OOBerror
+                   new.restecg)
+
+newHeart <-missForest(dataImp)
+newHeart <-missForest(dataImp,ntree = 20)
+newHeart <-missForest(dataImp,ntree = 40)
+
+
+newHeart$ximp
+newHeart$OOBerror
   
