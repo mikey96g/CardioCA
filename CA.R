@@ -11,7 +11,8 @@ library(moments)
 library(corrplot)
 library(ggplot2)
 library(missForest)
-Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC", stringsAsFactors=FALSE, sep =",",
+Cardiology<-read.table("https://drive.google.com/uc?export=download&id=1Pto51euMg7A6-9zKShOCFAfYCjxGEdcC",
+                       stringsAsFactors=FALSE, sep =",",
                        header=TRUE)
 #Cardiology<-read.table(file="H://github//CardioCA//CardiologyRel.csv",
 #stringsAsFactors=FALSE, sep =",", header=TRUE)
@@ -112,6 +113,7 @@ class(class)
 #2.Percentage of missing values in the data
 table(is.na(Cardiology))
 percentageOf_missing_values<-(7/4613)*100
+percentageOf_missing_values
 
 #3.Max, min, mean, mode, median standard deviation
 summary(Cardiology)
@@ -165,7 +167,7 @@ shapiro.test(trestbps)
 
 
 #plotting for normaility
-#normal - maybe
+#normal 
 qqnorm(age)
 qqline(age,col = "red")
 hist(age)
@@ -233,7 +235,7 @@ M
 #2 Histogram Overlay
 HistogramOverlay <- function(nVal,label){
   ggplot(Heart,aes(x=nVal,fill=class))+
-  geom_histogram(position = "identity",alpha=0.4,binwidth = 8)+theme_bw()+ xlab(label)
+  geom_histogram(position = "identity",alpha=0.4,binwidth = 4)+theme_bw()+ xlab(label)
 }
 #separate call on cholesterol and thalach to fix binwidth
 ggplot(Heart,aes(x=cholesterol,fill=class))+
@@ -339,22 +341,6 @@ n<-length(age)
 #Declare number of bins and bin indicator
 nbins<-4
 whichbin<-c(rep(0,n)) 
-whichbin
-#Equal Frequencey(Equal Depth)
-freq<-n/nbins
-#sort the data
-xsorted<-sort(age)
-for (i in 1:nbins)
-{
-  for(j in 1:n)
-  {
-    if((i-1)*freq<j&&j<=i*freq)
-      whichbin[j]<-i
-  }
-  
-}
-whichbin
-xsorted
 
 #equal-width-4 bins
 range.age<-max(age)-min(age)+1
@@ -365,9 +351,7 @@ for(i in 1:nbins)
   {
     if((i-1)*binwidth < age[j]&&age[j]<=(i)*binwidth)
       whichbin[j]<-i
-    
   }
-  
 }
 whichbin
 age
@@ -387,6 +371,7 @@ skewness(z.oldpeak)
 #natural log
 natlog.oldpeak<-log(Cardiology$oldpeak)
 natlog.oldpeak
+natlog.oldpeak[!is.finite(natlog.oldpeak)] <- 0
 skewness(natlog.oldpeak)
 
 #Square Root
@@ -396,9 +381,9 @@ skewness(sq.oldpeak)
 #Inverse
 invsqrt.oldpeak<-1/sqrt(Cardiology$oldpeak)
 invsqrt.oldpeak
+invsqrt.oldpeak[!is.finite(invsqrt.oldpeak)] <- 0
 skewness(invsqrt.oldpeak)
 
-#https://stackoverflow.com/questions/20254084/plot-normal-left-and-right-skewed-distribution-in-r
 #machiene learning 
 install.packages("rpart",dependencies = TRUE)
 library(rpart)
@@ -431,10 +416,18 @@ dataImp <- data.frame(k.age,
                    new.restecg)
 
 newHeart <-missForest(dataImp)
-newHeart <-missForest(dataImp,ntree = 20)
-newHeart <-missForest(dataImp,ntree = 40)
-
-
+#Use this to check newly imputed values row 38,47,59
 newHeart$ximp
 newHeart$OOBerror
+
+newHeart <-missForest(dataImp,ntree = 20)
+newHeart$ximp
+newHeart$OOBerror
+
+newHeart <-missForest(dataImp,ntree = 40)
+newHeart$ximp
+newHeart$OOBerror
+
+
+
   
